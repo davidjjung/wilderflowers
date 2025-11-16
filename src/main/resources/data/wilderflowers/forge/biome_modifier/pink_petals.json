@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#wilderflowers:pink_petals_biomes",
+  "features": "wilderflowers:pink_petals",
+  "step": "vegetal_decoration"
+}

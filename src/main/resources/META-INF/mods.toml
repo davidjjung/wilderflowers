@@ -1,0 +1,32 @@
+modLoader = "javafml"
+loaderVersion = "[32,)"
+issueTrackerURL = ""
+license = "MIT License"
+
+[[mods]]
+modId = "wilderflowers"
+version = "${file.jarVersion}"
+logoFile = "logo.png"
+itemIcon = "minecraft:dirt"
+configBackground = "minecraft:textures/block/dirt.png"
+authors = "Kobber, cassiancc"
+credits = "ProbablyEkho, DavigJ"
+displayURL = ""
+displayName = "Wilder Flowers"
+description = '''
+    Adds various wildflowers to world generation as well as flower garlands.
+    '''
+
+[[dependencies.wilderflowers]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.19.2,1.19.3)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.wilderflowers]]
+modId = "forge"
+mandatory = true
+versionRange = "[43.3.0,)"
+ordering = "NONE"
+side = "BOTH"
