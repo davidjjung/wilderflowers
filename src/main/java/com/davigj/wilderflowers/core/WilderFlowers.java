@@ -1,22 +1,23 @@
 package com.davigj.wilderflowers.core;
 
 import com.davigj.wilderflowers.client.WilderFlowersClient;
-import com.davigj.wilderflowers.client.event.FlowerGarlandEvent;
+import com.davigj.wilderflowers.core.compat.SupplementariesCompat;
 import com.davigj.wilderflowers.core.registry.BlockSupplier;
 import com.davigj.wilderflowers.core.registry.WFBlocks;
 import com.davigj.wilderflowers.core.registry.WFItems;
 import com.davigj.wilderflowers.core.registry.WFParticleTypes;
-import net.minecraft.client.Minecraft;
+import net.minecraft.core.Position;
+import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ComposterBlock;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ModelEvent;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -46,7 +47,7 @@ public class WilderFlowers {
             WilderFlowersClient.init(FMLJavaModLoadingContext.get());
         }
 
-        context.registerConfig(ModConfig.Type.COMMON, TemplateConfig.COMMON_SPEC);
+        context.registerConfig(ModConfig.Type.COMMON, WFConfig.COMMON_SPEC);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
@@ -54,6 +55,10 @@ public class WilderFlowers {
             ComposterBlock.COMPOSTABLES.put(foliageBlock.getBlockSupplier().get(), 0.3f);
         }
         event.enqueueWork(WFBlocks::addPottedPlants);
+
+        if (ModList.get().isLoaded("supplementaries")) {
+            SupplementariesCompat.register();
+        }
     }
 
     private void clientSetup(FMLClientSetupEvent event) {
@@ -73,4 +78,5 @@ public class WilderFlowers {
     public static ResourceLocation identifier(String namespace, String id) {
         return new ResourceLocation(namespace, id);
     }
+
 }

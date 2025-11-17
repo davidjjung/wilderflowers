@@ -55,5 +55,6 @@ public class WilderFlowersClient {
         event.register(WilderFlowers.locate("block/moody_wildflowers_potted"));
         event.register(WilderFlowers.locate("block/playful_wildflowers_potted"));
         event.register(WilderFlowers.locate("block/hopeful_wildflowers_potted"));
+        event.register(WilderFlowers.locate("block/clovers_potted"));
     }
 }

@@ -1,20 +1,20 @@
 modLoader = "javafml"
 loaderVersion = "[32,)"
-issueTrackerURL = ""
+issueTrackerURL = "https://github.com/davidjjung/wilderflowers/issues"
 license = "MIT License"
 
 [[mods]]
 modId = "wilderflowers"
 version = "${file.jarVersion}"
 logoFile = "logo.png"
-itemIcon = "minecraft:dirt"
+itemIcon = "wilderflowers:hopeful_wildflowers"
 configBackground = "minecraft:textures/block/dirt.png"
 authors = "Kobber, cassiancc"
 credits = "ProbablyEkho, DavigJ"
-displayURL = ""
+displayURL = "https://modrinth.com/project/wilder-flowers"
 displayName = "Wilder Flowers"
 description = '''
-    Adds various wildflowers to world generation as well as flower garlands.
+    Adds various wildflowers to world generation, as well as flower garlands.
     '''
 
 [[dependencies.wilderflowers]]

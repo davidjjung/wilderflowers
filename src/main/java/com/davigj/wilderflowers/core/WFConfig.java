@@ -3,7 +3,7 @@ package com.davigj.wilderflowers.core;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
-public class TemplateConfig {
+public class WFConfig {
     public static class Common {
 //        public final ForgeConfigSpec.ConfigValue<Boolean> configExists;
 
@@ -15,11 +15,11 @@ public class TemplateConfig {
     }
 
     static final ForgeConfigSpec COMMON_SPEC;
-    public static final TemplateConfig.Common COMMON;
+    public static final WFConfig.Common COMMON;
 
 
     static {
-        final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(TemplateConfig.Common::new);
+        final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(WFConfig.Common::new);
         COMMON_SPEC = specPair.getRight();
         COMMON = specPair.getLeft();
     }
