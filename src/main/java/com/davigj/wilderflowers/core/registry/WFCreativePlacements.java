@@ -9,7 +9,6 @@ public class WFCreativePlacements {
             event.accept(WFBlocks.getItem(WFBlocks.CLOVERS));
             event.accept(WFBlocks.getItem(WFBlocks.CHEERFUL_WILDFLOWERS));
             event.accept(WFBlocks.getItem(WFBlocks.MOODY_WILDFLOWERS));
-            event.accept(WFBlocks.getItem(WFBlocks.PINK_PETALS));
             event.accept(WFBlocks.getItem(WFBlocks.HOPEFUL_WILDFLOWERS));
         } else if (event.getTabKey().equals(CreativeModeTabs.BUILDING_BLOCKS)) {
             event.accept(WFItems.CHEERY_WILDFLOWER_GARLAND);

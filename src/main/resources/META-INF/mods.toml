@@ -14,7 +14,7 @@ credits = "ProbablyEkho, DavigJ"
 displayURL = "https://modrinth.com/project/wilder-flowers"
 displayName = "Wilder Flowers"
 description = '''
-    Adds various wildflowers to world generation, as well as flower garlands.
+    Adds various wildflowers to world generation, as well as clover and flower garlands.
     '''
 
 [[dependencies.wilderflowers]]

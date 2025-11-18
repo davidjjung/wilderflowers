@@ -49,6 +49,8 @@ public class WilderFlowers {
         bus.addListener(this::commonSetup);
         bus.addListener(this::clientSetup);
         bus.addListener(this::dataSetup);
+        bus.addListener(this::addAdvancementOverrides);
+
         if (FMLEnvironment.dist.isClient()) {
             WilderFlowersClient.init(FMLJavaModLoadingContext.get());
         }
@@ -84,7 +86,6 @@ public class WilderFlowers {
     public static ResourceLocation identifier(String namespace, String id) {
         return new ResourceLocation(namespace, id);
     }
-
 
     private void addAdvancementOverrides(AddPackFindersEvent event) {
         if (event.getPackType() == PackType.CLIENT_RESOURCES) {

@@ -2,9 +2,11 @@ package com.davigj.wilderflowers.core.registry;
 
 import com.davigj.wilderflowers.common.block.FlowerBedBlock;
 import com.davigj.wilderflowers.common.block.FlowerGarlandBlock;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
@@ -20,6 +22,7 @@ import oshi.util.tuples.Pair;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import static com.davigj.wilderflowers.core.WilderFlowers.MOD_ID;
@@ -49,10 +52,11 @@ public class WFBlocks {
             HOPEFUL_WILDFLOWERS = registerBlock("hopeful_wildflowers",
             ()-> new FlowerBedBlock(flowerBedProperties()));
 
-
     public static final RegistryObject<Block> POTTED_CHEERY_WILDFLOWERS = registerPottedPlant(CHEERFUL_WILDFLOWERS);
     public static final RegistryObject<Block> POTTED_HOPEFUL_WILDFLOWERS = registerPottedPlant(HOPEFUL_WILDFLOWERS);
-    public static final RegistryObject<Block> POTTED_PLAYFUL_WILDFLOWERS = registerPottedPlant(PINK_PETALS);
+    public static final RegistryObject<Block> POTTED_PLAYFUL_WILDFLOWERS = BLOCKS.register("potted_pink_petals",
+            () -> new FlowerPotBlock(Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", "pink_petals"))),
+                            BlockBehaviour.Properties.copy(Blocks.POTTED_PINK_TULIP)));
     public static final RegistryObject<Block> POTTED_MOODY_WILDFLOWERS = registerPottedPlant(MOODY_WILDFLOWERS);
     public static final RegistryObject<Block> POTTED_CLOVERS = registerPottedPlant(CLOVERS);
 
@@ -78,7 +82,6 @@ public class WFBlocks {
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);
         FOLIAGE_BLOCKS.add(CHEERFUL_WILDFLOWERS);
-        FOLIAGE_BLOCKS.add(PINK_PETALS);
         FOLIAGE_BLOCKS.add(MOODY_WILDFLOWERS);
         FOLIAGE_BLOCKS.add(HOPEFUL_WILDFLOWERS);
     }
