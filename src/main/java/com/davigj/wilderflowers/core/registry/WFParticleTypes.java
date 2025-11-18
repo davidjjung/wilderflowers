@@ -46,10 +46,10 @@ public class WFParticleTypes {
 
         @SubscribeEvent
         public static void registerParticleTypes(RegisterParticleProvidersEvent event) {
-            event.register(WFParticleTypes.CHEERY_PETAL.get(), FlowerPetalParticle.Provider::new);
-            event.register(WFParticleTypes.PLAYFUL_PETAL.get(), FlowerPetalParticle.Provider::new);
-            event.register(WFParticleTypes.HOPEFUL_PETAL.get(), FlowerPetalParticle.Provider::new);
-            event.register(WFParticleTypes.MOODY_PETAL.get(), FlowerPetalParticle.Provider::new);
+            event.registerSpriteSet(WFParticleTypes.CHEERY_PETAL.get(), FlowerPetalParticle.Provider::new);
+            event.registerSpriteSet(WFParticleTypes.PLAYFUL_PETAL.get(), FlowerPetalParticle.Provider::new);
+            event.registerSpriteSet(WFParticleTypes.HOPEFUL_PETAL.get(), FlowerPetalParticle.Provider::new);
+            event.registerSpriteSet(WFParticleTypes.MOODY_PETAL.get(), FlowerPetalParticle.Provider::new);
         }
     }
 }

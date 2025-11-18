@@ -3,11 +3,11 @@ package com.davigj.wilderflowers.client;
 import com.davigj.wilderflowers.client.event.FlowerGarlandEvent;
 import com.davigj.wilderflowers.client.registry.WFItemProperties;
 import com.davigj.wilderflowers.core.WilderFlowers;
-import com.davigj.wilderflowers.core.registry.BlockSupplier;
 import com.davigj.wilderflowers.core.registry.WFBlocks;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
@@ -17,6 +17,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.RegistryObject;
+import oshi.util.tuples.Pair;
 
 @Mod.EventBusSubscriber(modid = WilderFlowers.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class WilderFlowersClient {
@@ -27,14 +29,13 @@ public class WilderFlowersClient {
 
     @SubscribeEvent
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event){
-        BlockColors blockColors = event.getBlockColors();
-        for (BlockSupplier block : WFBlocks.FOLIAGE_BLOCKS) {
+        for (Pair<RegistryObject<Block>, RegistryObject<BlockItem>> block : WFBlocks.FOLIAGE_BLOCKS) {
             event.register(((state, view, pos, tintIndex) -> {
                 if (view == null || pos == null) {
                     return 9551193;
                 }
                 return BiomeColors.getAverageFoliageColor(view, pos);
-            }), block.getBlock());
+            }), block.getA().get());
         }
     }
 

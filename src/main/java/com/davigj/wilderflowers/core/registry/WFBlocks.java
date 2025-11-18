@@ -4,19 +4,18 @@ import com.davigj.wilderflowers.common.block.FlowerBedBlock;
 import com.davigj.wilderflowers.common.block.FlowerGarlandBlock;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import oshi.util.tuples.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,25 +29,26 @@ public class WFBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MOD_ID);
     public static final Map<ResourceLocation, RegistryObject<Block>> POTTED_PLANTS = new HashMap<>();
 
-    public static BlockSupplier
+    public static Pair<RegistryObject<Block>, RegistryObject<BlockItem>>
             CHEERFUL_WILDFLOWERS = registerBlock("cheery_wildflowers",
-            ()-> new FlowerBedBlock(flowerBedProperties(false)), CreativeModeTab.TAB_DECORATIONS);
+            ()-> new FlowerBedBlock(flowerBedProperties()));
 
-    public static BlockSupplier
+    public static Pair<RegistryObject<Block>, RegistryObject<BlockItem>>
             PINK_PETALS = registerBlock("pink_petals",
-            ()-> new FlowerBedBlock(flowerBedProperties(false)), CreativeModeTab.TAB_DECORATIONS);
+            ()-> new FlowerBedBlock(flowerBedProperties()));
 
-    public static BlockSupplier
+    public static Pair<RegistryObject<Block>, RegistryObject<BlockItem>>
             CLOVERS = registerBlock("clovers",
-            ()-> new FlowerBedBlock(flowerBedProperties(true)), CreativeModeTab.TAB_DECORATIONS);
+            ()-> new FlowerBedBlock(flowerBedProperties().replaceable()));
 
-    public static BlockSupplier
+    public static Pair<RegistryObject<Block>, RegistryObject<BlockItem>>
             MOODY_WILDFLOWERS = registerBlock("moody_wildflowers",
-            ()-> new FlowerBedBlock(flowerBedProperties(false)), CreativeModeTab.TAB_DECORATIONS);
+            ()-> new FlowerBedBlock(flowerBedProperties()));
 
-    public static BlockSupplier
+    public static Pair<RegistryObject<Block>, RegistryObject<BlockItem>>
             HOPEFUL_WILDFLOWERS = registerBlock("hopeful_wildflowers",
-            ()-> new FlowerBedBlock(flowerBedProperties(false)), CreativeModeTab.TAB_DECORATIONS);
+            ()-> new FlowerBedBlock(flowerBedProperties()));
+
 
     public static final RegistryObject<Block> POTTED_CHEERY_WILDFLOWERS = registerPottedPlant(CHEERFUL_WILDFLOWERS);
     public static final RegistryObject<Block> POTTED_HOPEFUL_WILDFLOWERS = registerPottedPlant(HOPEFUL_WILDFLOWERS);
@@ -57,23 +57,23 @@ public class WFBlocks {
     public static final RegistryObject<Block> POTTED_CLOVERS = registerPottedPlant(CLOVERS);
 
     public static  RegistryObject<Block>
-            CHEERY_WILDFLOWER_GARLAND = WFBlocks.BLOCKS.register("cheery_wildflower_garland", ()-> new FlowerGarlandBlock(flowerBedProperties(false)));
+            CHEERY_WILDFLOWER_GARLAND = WFBlocks.BLOCKS.register("cheery_wildflower_garland", ()-> new FlowerGarlandBlock(flowerBedProperties()));
 
     public static  RegistryObject<Block>
-            HOPEFUL_WILDFLOWER_GARLAND = WFBlocks.BLOCKS.register("hopeful_wildflower_garland", ()-> new FlowerGarlandBlock(flowerBedProperties(false)));
+            HOPEFUL_WILDFLOWER_GARLAND = WFBlocks.BLOCKS.register("hopeful_wildflower_garland", ()-> new FlowerGarlandBlock(flowerBedProperties()));
 
     public static  RegistryObject<Block>
-            PLAYFUL_WILDFLOWER_GARLAND = WFBlocks.BLOCKS.register("playful_wildflower_garland", ()-> new FlowerGarlandBlock(flowerBedProperties(false)));
+            PLAYFUL_WILDFLOWER_GARLAND = WFBlocks.BLOCKS.register("playful_wildflower_garland", ()-> new FlowerGarlandBlock(flowerBedProperties()));
 
     public static  RegistryObject<Block>
-            MOODY_WILDFLOWER_GARLAND = WFBlocks.BLOCKS.register("moody_wildflower_garland", ()-> new FlowerGarlandBlock(flowerBedProperties(false)));
+            MOODY_WILDFLOWER_GARLAND = WFBlocks.BLOCKS.register("moody_wildflower_garland", ()-> new FlowerGarlandBlock(flowerBedProperties()));
 
 
     public static void addPottedPlants() {
         POTTED_PLANTS.forEach(((FlowerPotBlock) Blocks.FLOWER_POT)::addPlant);
     }
 
-    public static final ArrayList<BlockSupplier> FOLIAGE_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Pair<RegistryObject<Block>, RegistryObject<BlockItem>>> FOLIAGE_BLOCKS = new ArrayList<Pair<RegistryObject<Block>, RegistryObject<BlockItem>>>();
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);
@@ -83,26 +83,27 @@ public class WFBlocks {
         FOLIAGE_BLOCKS.add(HOPEFUL_WILDFLOWERS);
     }
 
-    public static RegistryObject<Block> registerPottedPlant(BlockSupplier block) {
-        RegistryObject<Block> pottedBlock = BLOCKS.register("potted_" + block.getID(), () -> new FlowerPotBlock(
-                () -> (FlowerPotBlock) Blocks.FLOWER_POT,
-                block.getBlockSupplier(),
+    public static RegistryObject<Block> registerPottedPlant(Pair<RegistryObject<Block>, RegistryObject<BlockItem>> block) {
+        RegistryObject<Block> pottedBlock = BLOCKS.register("potted_" + block.getA().getId().getPath(), () -> new FlowerPotBlock(
+                block.getA().get(),
                 BlockBehaviour.Properties.copy(Blocks.FLOWER_POT)
         ));
-        POTTED_PLANTS.put(block.getItemSupplier().getId(), pottedBlock);
+        POTTED_PLANTS.put(block.getB().getId(), pottedBlock);
         return pottedBlock;
     }
 
-    private static BlockBehaviour.Properties flowerBedProperties(boolean replaceable) {
-        var material = Material.PLANT;
-        if (replaceable) material = Material.REPLACEABLE_PLANT;
-        return BlockBehaviour.Properties.of(material).noCollission().sound(SoundType.FLOWERING_AZALEA);
+    private static BlockBehaviour.Properties flowerBedProperties() {
+        return BlockBehaviour.Properties.of().noCollission().sound(SoundType.FLOWERING_AZALEA);
     }
 
-    public static BlockSupplier registerBlock(String blockID, Supplier<Block> blockSupplier, CreativeModeTab tab) {
+    public static Pair<RegistryObject<Block>, RegistryObject<BlockItem>> registerBlock(String blockID, Supplier<Block> blockSupplier) {
         final var block = BLOCKS.register(blockID, blockSupplier);
-        final var item = WFItems.ITEMS.register(blockID, () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
-        return new BlockSupplier(blockID, block, item);
+        final var item = WFItems.ITEMS.register(blockID, () -> new BlockItem(block.get(), new Item.Properties()));
+        return new Pair<>(block, item);
+    }
+
+    public static Item getItem(Pair<RegistryObject<Block>, RegistryObject<BlockItem>> block) {
+        return block.getB().get();
     }
 
 }

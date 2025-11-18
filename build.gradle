@@ -77,8 +77,8 @@ sourceSets.main.resources {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${project.minecraft}-${project.forge}"
-    compileOnly fg.deobf("maven.modrinth:supplementaries:UQu29fD5")
-    compileOnly fg.deobf("maven.modrinth:moonlight:4R7I44b3")
+    implementation fg.deobf("maven.modrinth:supplementaries:LAQ22yJj")
+    implementation fg.deobf("maven.modrinth:moonlight:DhH5mm9z")
 
     compileOnly fg.deobf("mezz.jei:jei-${project.minecraft}-common-api:${project.jei}")
     compileOnly fg.deobf("mezz.jei:jei-${project.minecraft}-forge-api:${project.jei}")
